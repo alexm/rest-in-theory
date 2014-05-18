@@ -53,9 +53,9 @@
 						<h2>
 							<ul>
 								<li class="fragment">easy</li>
-								<li class="fragment">extensible</li>
-								<li class="fragment">distributed</li>
-								<li class="fragment">scale</li>
+								<li class="fragment">customized</li>
+								<li class="fragment">linked</li>
+								<li class="fragment">pervasive</li>
 							</ul>
 						</h2>
 					</section>
@@ -66,7 +66,7 @@
 						<h1>Timeline</h1>
 					</section>
 					<section>
-						<h2><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Architectural Styles and the Design of Network-based Software Architectures</a></h2>
+						<h2><em><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Architectural Styles and the Design of Network-based Software Architectures</a></em></h2>
 						<p>Roy Fielding (2000)</p>
 					</section>
 					<section>
@@ -74,14 +74,14 @@
 						<p>W3C recommendation (2003)</p>
 					</section>
 					<section>
-						<h2>RESTful Web Services</h2>
+						<h2><em>RESTful Web Services</em></h2>
 						<p>Leonard Richardson, Sam Ruby (2007)</p>
 						<a href="http://restfulwebapis.com/rws.html">
 							<img width="250" height="328" src="http://restfulwebapis.com/images/rws-cover.jpg" alt="RWA cover">
 						</a>
 					</section>
 					<section>
-						<h3><em>REST becomes a success</em></h3>
+						<h3>REST becomes a success</h3>
 						<a href="http://shop.oreilly.com/product/9780596801694.do">
 							<img width="250" height="328" src="http://akamaicovers.oreilly.com/images/9780596801694/lrg.jpg" alt="RWSC cover">
 						</a>
@@ -93,7 +93,7 @@
 						</a>
 					</section>
 					<section>
-						<h2>RESTful Web APIs</h2>
+						<h2><em>RESTful Web APIs</em></h2>
 						<p>Leonard Richardson, Mike Amundsen, Sam Ruby (2013)</p>
 						<a href="http://restfulwebapis.com/">
 							<img width="250" height="328" src="http://restfulwebapis.com/images/rwa-cover.jpg" alt="RWS cover">
@@ -113,23 +113,42 @@
 						</blockquote>
 					</section>
 					<section>
-						<h2>Interface Constraints</h2>
+						<h3>Architectural Properties of the Web</h3>
 						<ul>
-							<li>Identification of Resources</li>
+							<li>Low Entry-Barrier <span class="fragment">(easy)</span></li>
+							<li>Extensibility <span class="fragment">(customized)</span></li>
+							<li>Distributed Hypermedia <span class="fragment">(linked)</span></li>
+							<li>Internet-Scale <span class="fragment">(pervasive)</span></li>
+					</section>
+					<section>
+						<h3>Interface Constraints</h3>
+						<ul>
+							<li>Identification of Resources <span class="fragment">(URIs)</span></li>
 							<li>Manipulation of Resources Through Representations</li>
-							<li>Self-Descriptive Messages</li>
-							<li>The Hypermedia Constraint</li>
+							<li>Self-Descriptive Messages <span class="fragment">(stateless)</span></li>
+							<li>The Hypermedia Constraint <span class="fragment">(HATEOAS)</span></li>
 						</ul>
 					</section>
 					<section>
-						<h2>Architectural Constraints</h2>
+						<h3>HATEOAS</h3>
+						<blockquote>
+							&ldquo;Hypermedia as the engine of application state.&rdquo;
+						</blockquote>
+						<ul class="fragment">
+							<li>All application state is kept on the client side.</li>
+							<li>The client can only change it through HTTP requests and responses.</li>
+							<li>The client can find next actions through hypermedia controls.</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Architectural Constraints</h3>
 						<ul>
 							<li>Client-Server</li>
 							<li>Statelessness</li>
-							<li>Caching</li>
-							<li>Uniform Interface</li>
-							<li>Layered System</li>
-							<li>Code on Demand</li>
+							<li>Caching <span class="fragment">(304)</span></li>
+							<li><a href="#/3/2">Uniform Interface</a></li>
+							<li>Layered System <span class="fragment">(proxies)</span></li>
+							<li>Code on Demand <span class="fragment">(javascript)</span></li>
 						</ul>
 					</section>
 				</section>
@@ -147,7 +166,7 @@
 					<section>
 						<h3>What is your worst nightmare in APIs?</h3>
 						<h1 class="fragment">Documentation</h1>
-						<p class="fragment">Bad, old, wrong or lack of.</p>
+						<p class="fragment">Bad, old, wrong or lack thereof.</p>
 					</section>
 					<section>
 						<h2>The Semantic Gap</h2>
@@ -161,13 +180,19 @@
 							requires the intervention of a human being
 							at some point.&rdquo;
 						</blockquote>
+						<p>RESTful Web APIs, p. 360</p>
 					</section>
 				</section>
 
 				<section>
 					<h2>Final Thoughts</h2>
-					<ul class="fragment">
-							<li>...</li>
+					<ul>
+						<li class="fragment">Use less documentation and more profiles.</li>
+						<li class="fragment">Use more standards and less ad-hoc APIs.</li>
+						<li class="fragment">Propose new standards when there are none.</li>
+						<li class="fragment">Think about Internet-scale APIs.</li>
+						<li class="fragment">Let your APIs socialize with other APIs.</li>
+						<li class="fragment">Embrace the semantic challenge.</li>
 					</ul>
 				</section>
 
@@ -199,7 +224,7 @@
 				center: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Parallax scrolling
 				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
