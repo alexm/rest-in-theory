@@ -50,38 +50,36 @@
 					</section>
 					<section>
 						<h3>What makes the Web a success?</h3>
-						<h2>
-							<ul>
-								<li class="fragment">easy</li>
-								<li class="fragment">customized</li>
-								<li class="fragment">linked</li>
-								<li class="fragment">pervasive</li>
-							</ul>
-						</h2>
+						<ul>
+							<li class="fragment">easy</li>
+							<li class="fragment">customized</li>
+							<li class="fragment">linked</li>
+							<li class="fragment">pervasive</li>
+						</ul>
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h1>Timeline</h1>
+						<h2>Timeline</h2>
 					</section>
 					<section>
 						<h2><em><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Architectural Styles and the Design of Network-based Software Architectures</a></em></h2>
 						<p>Roy Fielding (2000)</p>
 					</section>
 					<section>
-						<h2>SOAP 1.2</h2>
+						<h3>SOAP 1.2</h3>
 						<p>W3C recommendation (2003)</p>
 					</section>
 					<section>
-						<h2><em>RESTful Web Services</em></h2>
+						<h3><em>RESTful Web Services</em></h3>
 						<p>Leonard Richardson, Sam Ruby (2007)</p>
 						<a href="http://restfulwebapis.com/rws.html">
 							<img width="250" height="328" src="http://restfulwebapis.com/images/rws-cover.jpg" alt="RWA cover">
 						</a>
 					</section>
 					<section>
-						<h3>REST becomes a success</h3>
+						<h4>REST becomes a success</h4>
 						<a href="http://shop.oreilly.com/product/9780596801694.do">
 							<img width="250" height="328" src="http://akamaicovers.oreilly.com/images/9780596801694/lrg.jpg" alt="RWSC cover">
 						</a>
@@ -93,7 +91,7 @@
 						</a>
 					</section>
 					<section>
-						<h2><em>RESTful Web APIs</em></h2>
+						<h3><em>RESTful Web APIs</em></h3>
 						<p>Leonard Richardson, Mike Amundsen, Sam Ruby (2013)</p>
 						<a href="http://restfulwebapis.com/">
 							<img width="250" height="328" src="http://restfulwebapis.com/images/rwa-cover.jpg" alt="RWS cover">
@@ -103,7 +101,7 @@
 
 				<section>
 					<section>
-						<h2><a href="https://en.wikipedia.org/wiki/Representational_State_Transfer">RESTful</a></h2>
+						<h2><a href="https://en.wikipedia.org/wiki/Representational_State_Transfer">REST(ful)</a></h2>
 						<blockquote>
 							&ldquo;Representational state transfer (REST) is a software
 							architectural style consisting of a coordinated set of
@@ -138,16 +136,17 @@
 							<li>All application state is kept on the client side.</li>
 							<li>The client can only change it through HTTP requests and responses.</li>
 							<li>The client can find next actions through hypermedia controls.</li>
+							<li>Hypermedia controls drive changes in application state.</li>
 						</ul>
 					</section>
 					<section>
 						<h3>Architectural Constraints</h3>
 						<ul>
-							<li>Client-Server</li>
-							<li>Statelessness</li>
-							<li>Caching <span class="fragment">(304)</span></li>
+							<li>Client-Server <span class="fragment">(one to one)</span></li>
+							<li>Statelessness <span class="fragment">(application state, resource state)</span></li>
+							<li>Caching <span class="fragment">(if-modified-since, if-match, 304)</span></li>
 							<li><a href="#/3/2">Uniform Interface</a></li>
-							<li>Layered System <span class="fragment">(proxies)</span></li>
+							<li>Layered System <span class="fragment">(proxies, gateways)</span></li>
 							<li>Code on Demand <span class="fragment">(javascript)</span></li>
 						</ul>
 					</section>
@@ -169,6 +168,72 @@
 						<p class="fragment">Bad, old, wrong or lack thereof.</p>
 					</section>
 					<section>
+						<h3><a href="https://dev.twitter.com/docs/api/1.1">Twitter REST API v1.1</a></h3>
+						<h4><a href="https://dev.twitter.com/docs/api/1.1/post/statuses/update">POST statuses/update</a></h4>
+						<ul>
+							<li>Resource URL: https://api.twitter.com/1.1/statuses/update.json</li>
+							<li>HTTP Methods: POST</li>
+							<li>Response Formats: json</li>
+							<li>Parameters: status (required), in_reply_to_status_id, lat, long, place_id, display_coordinates, trim_user</li>
+						</ul>
+					</section>
+					<section>
+						<h3>What is missing in this example?</h3>
+						<pre><code class="http">
+POST /1.1/statuses/update.json HTTP/1.1
+User-Agent: curl/7.35.0
+Host: api.twitter.com
+Accept: */*
+Content-Length: 68
+Content-Type: application/x-www-form-urlencoded
+
+status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalk
+						</code></pre>
+						<pre class="fragment"><code class="http">
+HTTP/1.1 400 Bad Request
+content-length: 61
+content-type: application/json; charset=utf-8
+date: Sun, 18 May 2014 19:30:43 UTC
+server: tfe
+set-cookie: guest_id=v1%3A140044144371735781; Domain=.twitter.com; Path=/; Expires=Tue, 17-May-2016 19:30:43 UTC
+strict-transport-security: max-age=631138519
+x-tfe-logging-request-category: API
+
+{"errors":[{"message":"Bad Authentication data","code":215}]}
+						</code></pre>
+					</section>
+					<section>
+						<h3>How can I fix it?</h3>
+						<pre class="fragment"><code class="http">
+POST /1.1/statuses/update.json HTTP/1.1
+User-Agent: curl/7.35.0
+Host: api.twitter.com
+Accept: */*
+Content-Length: 68
+Content-Type: application/x-www-form-urlencoded
+Authorization:
+        OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog",
+              oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg",
+              oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D",
+              oauth_signature_method="HMAC-SHA1",
+              oauth_timestamp="1318622958",
+              oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb",
+              oauth_version="1.0"
+
+status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalk
+						</code></pre>
+					</section>
+					<section>
+						<h3>How did I find that?</h3>
+						<p class="fragment">Read several pages of documentation:</p>
+						<ol>
+							<li class="fragment"><a href="https://dev.twitter.com/docs/api/1.1/post/statuses/update">POST statuses/update</a></li>
+							<li class="fragment"><a href="https://dev.twitter.com/docs/auth/oauth#user-context">Application-user authentication</a></li>
+							<li class="fragment"><a href="https://dev.twitter.com/docs/auth/using-oauth">Using OAuth</a></li>
+							<li class="fragment"><a href="https://dev.twitter.com/docs/auth/authorizing-request">Authorizing a request</a></li>
+						</ol>
+					</section>
+					<section>
 						<h2>The Semantic Gap</h2>
 						<blockquote>
 							&ldquo;The gap between the structure of a
@@ -185,18 +250,17 @@
 				</section>
 
 				<section>
-					<h2>Final Thoughts</h2>
-					<ul>
-						<li class="fragment">Use less documentation and more profiles.</li>
-						<li class="fragment">Use more standards and less ad-hoc APIs.</li>
-						<li class="fragment">Propose new standards when there are none.</li>
-						<li class="fragment">Think about Internet-scale APIs.</li>
-						<li class="fragment">Let your APIs socialize with other APIs.</li>
-						<li class="fragment">Embrace the semantic challenge.</li>
-					</ul>
-				</section>
-
-				<section>
+					<section>
+						<h2>Final Thoughts</h2>
+						<ul>
+							<li class="fragment">Try to use less documentation and more hypermedia.</li>
+							<li class="fragment">Use existing standards, content types, link relations, etc.</li>
+							<li class="fragment">Propose new ones when there are none.</li>
+							<li class="fragment">Think about Internet-scale APIs.</li>
+							<li class="fragment">Let your APIs socialize with other APIs.</li>
+							<li class="fragment">Embrace the semantic challenge!</li>
+						</ul>
+					</section>
 					<section>
 						<h2>Questions?</h2>
 						<p>by Alex Muntada / @alexmuntada</p>
